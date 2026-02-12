@@ -161,12 +161,13 @@ Below, I create an empty column called `x12`. Fill in the details of the `for(..
 **Solution**
 ```{r}
 #| size: "scriptsize"
-n <- nrow(df)                # How many rows to we have to fill?
-df$x12 <- rep(NA, nrow(df))   # Create an empty column for x12
-for(i in 1:nrow(df)){
-  df[i,4] <- df[i,1] * df[i,2] # replacing each row in the new column with x1 * x2
+df2 <- df   # Save it as a new dataframe
+n <- nrow(df2)                # How many rows to we have to fill?
+df2$x12 <- rep(NA, nrow(df2))   # Create an empty column for x12
+for(i in 1:nrow(df2)){
+  df2[i,4] <- df2[i,1] * df2[i,2] # replacing each row in the new column with x1 * x2
 }
-df[,]
+df2[,]
 ```
 
 ## Part i
@@ -176,12 +177,13 @@ Use your function to create a new column `total.score` in our data frame `df`.
 
 ```{r}
 #| size: "scriptsize"
-n <- nrow(df)                # How many rows to we have to fill?
-df$total.score <- rep(NA, nrow(df))   # Create an empty column for total.score
-for(i in 1:nrow(df)){
-  df[i,5] <- (df[i,1]*2) + df[i,2] - df[i,3]
+df3 <- df2
+n <- nrow(df3)                # How many rows to we have to fill?
+df3$total.score <- rep(NA, nrow(df3))   # Create an empty column for total.score
+for(i in 1:nrow(df3)){
+  df3[i,5] <- (df3[i,1]*2) + df3[i,2] - df3[i,3]
 }
-df[,]
+df3[,]
 ```
 
 ## Part j
@@ -198,13 +200,31 @@ evaluate.row <- function(number){
      "high"
   }
  }
-
-df[,1] <- sapply(df[,1],evaluate.row)
-df[]
+df4 <- df3
+df4[,1] <- sapply(df4[,1],evaluate.row)
+df4[]
 ```
 
 ## Part k
 Did we need to use loops or functions in (h.)-(j.)? That is, can we use vectorization to attain the same results in 1 line each? Where it is possible, write the line of code. Where it is not, explain why.
+
+**Solution**
+
+Part h
+```{r}
+#| size: "scriptsize"
+df$x12 <- df[,1] * df[,2]   # Create a new column using x1 * x2
+df[]
+```
+
+Part i
+```{r}
+#| size: "scriptsize"
+df$total.score <- (df[,1] * 2) + df[,2] - df[,3]   
+# Create a new column using testscore function
+df[]
+```
+
 
 # Complete Tasks for One Recipe
 
@@ -217,6 +237,13 @@ Install and load the `rvest` package [@rvest].
 Load the html of the `website/KimchiGrilledCheese.html` using the `read_html()` function and save the result to an object called `recipe.item`. We will use the Kimchi Grilled Cheese recipe as our prototype and extend this workflow to all recipes, so try to be as general as possible. If you do look at it, you'll notice it contains the html we saw in the developer tools in class.<br/>
 **Hint**: You can use `read_html(...)` like `read.csv(...)`. Don't forget you can use the documentation to help use it.
 
+**Solution**
+```{r}
+#| size: "scriptsize"
+library(package = "rvest")
+recipe.item <- read_html("website/KimchiGrilledCheese.html")
+```
+
 ## Part c
 
 Open the html file in a web browser and open developer tools. In chrome-based browsers, you can do this by pressing the three verticle dots in the upper-right corner, clicking "more tools", then "developer tools".
@@ -224,15 +251,39 @@ Open the html file in a web browser and open developer tools. In chrome-based br
 Find the name of the Ingredients section of the website and pull the HTML of the function using `html_element(...)` and save the results to an object called `ingredients.section`. <br/>
 **Hint**: You can ask for elements by id using a preceeding "\#". See `?html_element(...)` for a helpful example. 
 
+**Solution**
+```{r}
+#| size: "scriptsize"
+ingredients.section <- html_element(recipe.item, "#ingredients")
+```
+
 ## Part d
 Now, we want to obtain all of the itemized items. Find the element type the individual ingredients and pull all of them from `ingredients.section` using `html_elements(...)` (note the added s) and save the results to an object called `ingredients`.<br/>
 **Hint**: You can ask for elements by type by simply specifying the tag (e.g., "p" for paragraph). See `?html_element for a helpful example.
 
+**Solution**
+```{r}
+#| size: "scriptsize"
+ingredients <- html_elements(ingredients.section, "li")
+```
+
 ## Part e
 Similar to Part c. Find the name of the Instructions section of the website and pull the HTML of the function using `html_element(...)` and save the results to an object called `instructions.section`.<br/>
 
+**Solution**
+```{r}
+#| size: "scriptsize"
+instructions.section <- html_element(recipe.item, "#instructions")
+```
+
 ## Part f
 Now, we want to obtain all of the enumerated items. Find the element type the individual instructions and pull all of them from `instructions.section` using `html_elements(...)` (note the added s) and save the results to an object called `instructions`.
+
+**Solution**
+```{r}
+#| size: "scriptsize"
+instructions <- html_element(instructions.section, "ol")
+```
 
 ## Part g
 Find the class of the recipe image and pull the HTML using `html_element(...)` and save the results to an object called `image.element`. <br/>
