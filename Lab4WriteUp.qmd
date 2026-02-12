@@ -282,16 +282,27 @@ Now, we want to obtain all of the enumerated items. Find the element type the in
 **Solution**
 ```{r}
 #| size: "scriptsize"
-instructions <- html_element(instructions.section, "ol")
+instructions <- html_elements(instructions.section, "li")
 ```
 
 ## Part g
 Find the class of the recipe image and pull the HTML using `html_element(...)` and save the results to an object called `image.element`. <br/>
 **Hint**: You can ask for elements by class using a preceeding ".". See `?html_element(...)` for a helpful example. Further, note that HTML elements may have more than one class (separated by a space). When that is the case, you need to choose one.
 
+**Solution**
+```{r}
+#| size: "scriptsize"
+image.element <- html_element(recipe.item, ".figure-img")
+```
+
 ## Part h
 Use the `html_attr(...)` function to pull the source link ("src"). Then, use `paste(...)` to prepend the source link with "website/" so we have the full link.<br/>
 **Note**: This would be like adding "https://www.website.com" to get the absolute link.
+
+```{r}
+#| size: "scriptsize"
+image.url <- paste("website/", html_attr(image.element,"src"), sep = "")
+```
 
 ## Part i
 Now that we have all the things we need, let's try to print the recipe. Below, I have written code to print from the objects. One by one, remove `#| eval: false` from the YAML header and add `#| echo: false` and `#| results: 'asis'`, and test. Let me know if you're stuck!
@@ -299,7 +310,8 @@ Now that we have all the things we need, let's try to print the recipe. Below, I
 **Image**
 
 ```{r}
-#| eval: false
+#| echo: false
+#| results: 'asis'
 # width="50%" shrinks the image for printing
 recipe.title <- recipe.item |> html_element("h1") |> html_text()
 cat(paste('![', recipe.title, '](', image.url, "){width=50%}", sep="")) 
@@ -308,7 +320,8 @@ cat(paste('![', recipe.title, '](', image.url, "){width=50%}", sep=""))
 **Ingredients**
 
 ```{r}
-#| eval: false
+#| echo: false
+#| results: 'asis'
 formatted_list <- paste("-", html_text(ingredients))
 cat(formatted_list, sep = "\n")
 ```
@@ -316,7 +329,8 @@ cat(formatted_list, sep = "\n")
 **Instructions**
 
 ```{r}
-#| eval: false
+#| echo: false
+#| results: 'asis'
 formatted_list <- paste("1.", html_text(instructions))
 cat(formatted_list, sep = "\n")
 ```
