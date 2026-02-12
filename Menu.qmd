@@ -86,18 +86,137 @@ dinner <- c("website/AfricanPeanutSoup.html",
 
 # Ingredients
 
+Grocery List
+```{r}
+#| echo: false
+#| results: 'asis'
+dinner.recipes <- dinner[sample(x=1:length(dinner), size=3, replace = TRUE)]
+breakfast.recipe <- breakfasts[sample(x=1:length(breakfasts), size=1, replace = TRUE)]
+recipe <- c(breakfast.recipe, dinner.recipes)
+recipe <- unlist(recipe, recursive = FALSE)
+
+library(package = "rvest")
+for (i in 1:4){
+   recipe.item <- read_html(recipe[i])
+   ingredients.section <- html_element(recipe.item, "#ingredients")
+   ingredients <- html_elements(ingredients.section, "li")
+   formatted_list <- paste("-", html_text(ingredients))
+   cat(formatted_list, sep = "\n")
+}
+
+```
+
 \newpage
 
 # Recipe One
+```{r}
+#| echo: false
+#| results: 'asis'
+image <- function(recipenumber){
+recipe.one <- read_html(recipe[recipenumber])
+image.element <- html_element(recipe.one, ".figure-img")
+image.url <- paste("website/", html_attr(image.element,"src"), sep = "")
+# width="50%" shrinks the image for printing
+recipe.title <- recipe.one |> html_element("h1") |> html_text()
+cat(paste('![', recipe.title, '](', image.url, "){width=50%}", sep="")) 
+}
+image(2)
+```
+
+**Ingredients**
+```{r}
+#| echo: false
+#| results: 'asis'
+ingredients <- function(recipenumber){
+recipe.one <- read_html(recipe[recipenumber])
+ingredients.section <- html_element(recipe.one, "#ingredients")
+ingredients <- html_elements(ingredients.section, "li")
+ormatted_list <- paste("-", html_text(ingredients))
+cat(formatted_list, sep = "\n")
+}
+ingredients(2)
+```
+
+**Instructions**
+```{r}
+#| echo: false
+#| results: 'asis'
+instructions <- function(recipenumber){
+recipe.one <- read_html(recipe[recipenumber])
+instructions.section <- html_element(recipe.one, "#instructions")
+instructions <- html_elements(instructions.section, "li")
+formatted_list <- paste("1.", html_text(instructions))
+cat(formatted_list, sep = "\n")
+}
+instructions(2)
+```
 
 \newpage
 
 # Recipe Two
+```{r}
+#| echo: false
+#| results: 'asis'
+image(3)
+```
+
+**Ingredients**
+```{r}
+#| echo: false
+#| results: 'asis'
+ingredients(3)
+```
+
+**Instructions**
+```{r}
+#| echo: false
+#| results: 'asis'
+instructions(3)
+```
 
 \newpage
 
 # Recipe Three
 
+```{r}
+#| echo: false
+#| results: 'asis'
+image(4)
+```
+
+**Ingredients**
+```{r}
+#| echo: false
+#| results: 'asis'
+ingredients(4)
+```
+
+**Instructions**
+```{r}
+#| echo: false
+#| results: 'asis'
+instructions(4)
+```
+
 \newpage
 
 # Breakfast Recipe
+```{r}
+#| echo: false
+#| results: 'asis'
+image(1)
+```
+
+**Ingredients**
+```{r}
+#| echo: false
+#| results: 'asis'
+ingredients(1)
+```
+
+**Instructions**
+```{r}
+#| echo: false
+#| results: 'asis'
+instructions(1)
+```
