@@ -146,25 +146,43 @@ Ask for the the value of in the third column and the fifth row of the data frame
 df[5,3]
 ```
 
-
 ## Part g
 Create a sequence from 1 to 10 by 2 and use it to print the odd rows of the data frame.
 
+```{r}
+#| size: "scriptsize"
+sq <- seq(from = 1, to = 10, by = 2)
+df[sq,]
+```
+
 ## Part h
 Below, I create an empty column called `x12`. Fill in the details of the `for(...)` loop to ensure `x12` is the product of `x1` and `x2`.
+
+**Solution**
 ```{r}
 #| size: "scriptsize"
 n <- nrow(df)                # How many rows to we have to fill?
 df$x12 <- rep(NA, nrow(df))   # Create an empty column for x12
 for(i in 1:nrow(df)){
-  # REPLACE WITH THE NECESSARY CODE
+  df[i,4] <- df[i,1] * df[i,2] # replacing each row in the new column with x1 * x2
 }
+df[,]
 ```
 
 ## Part i
 Write a function called `calculate.score(...)` that takes three arguments representing `x1`, `x2`, and `x3`) and returns a single value based on the formula:
 $$Score = (x_1 \times 2) + x_2 - x_3$$
 Use your function to create a new column `total.score` in our data frame `df`.
+
+```{r}
+#| size: "scriptsize"
+n <- nrow(df)                # How many rows to we have to fill?
+df$total.score <- rep(NA, nrow(df))   # Create an empty column for total.score
+for(i in 1:nrow(df)){
+  df[i,5] <- (df[i,1]*2) + df[i,2] - df[i,3]
+}
+df[,]
+```
 
 ## Part j
 Create a function called `evaluate.row(...)` that takes one argument and returns "low" when the argument is less than 4, "mid" when the argument is between 4 and 7 (inclusive), and "high" when the arguement is 8 or larger. Then, use `sapply(...)` to apply it to column `x1`.
