@@ -80,6 +80,12 @@ x <- sample(x=1:10,          # sample from 1, 2, 3, ..., 10
             replace = TRUE)  # allowed to sample the same item multiple times
 ```
 
+**Solution**
+```{r}
+#| size: "scriptsize"
+x[3]
+```
+
 ## Part b
 
 Below, I create a data frame filled with random observations.
@@ -101,17 +107,45 @@ df <- data.frame(x1 = sample(x=1:10,          # sample from 1, 2, 3, ..., 10
 ## Part b 
 Use the `head(...)` function to peek at the data frame.
 
+**Solution**
+```{r}
+#| size: "scriptsize"
+head(df)
+```
+
 ## Part c
 Ask for the column `x1`.
+
+**Solution**
+```{r}
+#| size: "scriptsize"
+df[,1]
+```
 
 ## Part d
 Ask for the fifth row of the data frame.
 
+```{r}
+#| size: "scriptsize"
+df[5,]
+```
+
 ## Part e
 Ask for the the value of `x1` in the fifth row of the data frame.
 
+```{r}
+#| size: "scriptsize"
+df[5,1]
+```
+
 ## Part f
 Ask for the the value of in the third column and the fifth row of the data frame.
+
+```{r}
+#| size: "scriptsize"
+df[5,3]
+```
+
 
 ## Part g
 Create a sequence from 1 to 10 by 2 and use it to print the odd rows of the data frame.
