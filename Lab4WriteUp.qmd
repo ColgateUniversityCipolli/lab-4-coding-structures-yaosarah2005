@@ -385,5 +385,5 @@ Yes, I use loops for creating the grocery list, as I repeat the same code to fin
 ## Functions
 Did you use functions in your code? If yes, how. If not, are there places you could have used them but did something else?
 
-Yes, I create functions for extracting image, ingredients, and instructions from the website. I create a list that contain the html of each recipe, and I applied their index in the list to the function, so that the function can extract image, ingredients or instructions of a specific recipe.
+Yes, I create functions for extracting image, ingredients, and instructions from the website. I create a vector that contain the html of each recipe, and I applied their index in the list to the function, so that the function can extract image, ingredients or instructions of a specific recipe.
 
