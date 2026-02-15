@@ -92,11 +92,7 @@ Grocery List
 #| results: 'asis'
 dinner.recipes <- dinner[sample(x=1:length(dinner), size=3, replace = TRUE)] # Select dinner recipes
 breakfast.recipe <- breakfasts[sample(x=1:length(breakfasts), size=1, replace = TRUE)] # Select breakfast recipes
-recipe <- c(NA, 4)             # Create an empty vector to store the recipe
-recipe[1] <- breakfast.recipe
-recipe[2] <- dinner.recipes[1]
-recipe[3] <- dinner.recipes[2]
-recipe[4] <- dinner.recipes[3]
+recipe <- c(breakfast.recipe, dinner.recipes[1], dinner.recipes[2], dinner.recipes[3])             # Create a list to store the recipe
 
 
 library(package = "rvest")
