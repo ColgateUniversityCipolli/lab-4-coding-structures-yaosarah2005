@@ -161,11 +161,11 @@ Below, I create an empty column called `x12`. Fill in the details of the `for(..
 **Solution**
 ```{r}
 #| size: "scriptsize"
-df2 <- df   # Save it as a new dataframe
-n <- nrow(df2)                # How many rows to we have to fill?
-df2$x12 <- rep(NA, nrow(df2))   # Create an empty column for x12
+df2 <- df                      # Save it as a new dataframe
+n <- nrow(df2)                 # rows we have to fill
+df2$x12 <- rep(NA, nrow(df2))  # Create an empty column for x12
 for(i in 1:nrow(df2)){
-  df2[i,4] <- df2[i,1] * df2[i,2] # replacing each row in the new column with x1 * x2
+  df2[i,4] <- df2[i,1] * df2[i,2]  # replacing each row in the new column with x1 * x2
 }
 df2[,]
 ```
@@ -178,10 +178,15 @@ Use your function to create a new column `total.score` in our data frame `df`.
 ```{r}
 #| size: "scriptsize"
 df3 <- df2
-n <- nrow(df3)                # How many rows to we have to fill?
+n <- nrow(df3)                          # rows we need to fill
 df3$total.score <- rep(NA, nrow(df3))   # Create an empty column for total.score
+
+calculate.score <- function(x1,x2,x3){
+   (x1 * 2) + x2 - x3 
+}                                       # create a function to calculate the score
+
 for(i in 1:nrow(df3)){
-  df3[i,5] <- (df3[i,1]*2) + df3[i,2] - df3[i,3]
+  df3[i,5] <- calculate.score(df3[i,1],df3[i,2],df3[i,3])
 }
 df3[,]
 ```
@@ -199,7 +204,7 @@ evaluate.row <- function(number){
   }else{
      "high"
   }
- }
+ }   # create a function to evaluate row
 df4 <- df3
 df4[,1] <- sapply(df4[,1],evaluate.row)
 df4[]
@@ -211,6 +216,8 @@ Did we need to use loops or functions in (h.)-(j.)? That is, can we use vectoriz
 **Solution**
 
 Part h
+
+We can use vectorization to atain the same result
 ```{r}
 #| size: "scriptsize"
 df$x12 <- df[,1] * df[,2]   # Create a new column using x1 * x2
@@ -218,6 +225,8 @@ df[]
 ```
 
 Part i
+
+We can use vectorization to atain the same result
 ```{r}
 #| size: "scriptsize"
 df$total.score <- (df[,1] * 2) + df[,2] - df[,3]   
@@ -225,12 +234,24 @@ df$total.score <- (df[,1] * 2) + df[,2] - df[,3]
 df[]
 ```
 
+Part h
+
+We cannot use vectorization here because it cannot perform comparisons and return specific values based on our criteria without using a function.
 
 # Complete Tasks for One Recipe
 
 ## Part a
 
 Install and load the `rvest` package [@rvest].
+
+**Solution**
+```{r}
+#| size: "scriptsize"
+#| eval: false
+install.packages("rvest")
+library(package = "rvest")
+```
+
 
 ## Part b
 
@@ -354,10 +375,15 @@ Read [https://www.scrapingbee.com/blog/is-web-scraping-legal/](Is Web Sraping Le
 ## Conditionals
 Did you use conditional statements in your code? If yes, how. If not, are there places you could have used them but did something else?
 
+I did not use conditional statements in my code. I cannot think of a place to use them since we are doing the same thing for each recipe.
+
 ## Loops
 Did you use loops in your code? If yes, how. If not, are there places you could have used them but did something else?
+
+Yes, I use loops for creating the grocery list, as I repeat the same code to find the ingredients of each recipe.
 
 ## Functions
 Did you use functions in your code? If yes, how. If not, are there places you could have used them but did something else?
 
+Yes, I create functions for extracting image, ingredients, and instructions from the website. I create a list that contain the html of each recipe, and I applied their index in the list to the function, so that the function can extract image, ingredients or instructions of a specific recipe.
 

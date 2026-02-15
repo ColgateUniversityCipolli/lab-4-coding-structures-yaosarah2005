@@ -90,10 +90,14 @@ Grocery List
 ```{r}
 #| echo: false
 #| results: 'asis'
-dinner.recipes <- dinner[sample(x=1:length(dinner), size=3, replace = TRUE)]
-breakfast.recipe <- breakfasts[sample(x=1:length(breakfasts), size=1, replace = TRUE)]
-recipe <- c(breakfast.recipe, dinner.recipes)
-recipe <- unlist(recipe, recursive = FALSE)
+dinner.recipes <- dinner[sample(x=1:length(dinner), size=3, replace = TRUE)] # Select dinner recipes
+breakfast.recipe <- breakfasts[sample(x=1:length(breakfasts), size=1, replace = TRUE)] # Select breakfast recipes
+recipe <- c(NA, 4)             # Create an empty vector to store the recipe
+recipe[1] <- breakfast.recipe
+recipe[2] <- dinner.recipes[1]
+recipe[3] <- dinner.recipes[2]
+recipe[4] <- dinner.recipes[3]
+
 
 library(package = "rvest")
 for (i in 1:4){
@@ -102,7 +106,7 @@ for (i in 1:4){
    ingredients <- html_elements(ingredients.section, "li")
    formatted_list <- paste("-", html_text(ingredients))
    cat(formatted_list, sep = "\n")
-}
+} # Find the ingredients for each recipe
 
 ```
 
@@ -119,7 +123,7 @@ image.url <- paste("website/", html_attr(image.element,"src"), sep = "")
 # width="50%" shrinks the image for printing
 recipe.title <- recipe.one |> html_element("h1") |> html_text()
 cat(paste('![', recipe.title, '](', image.url, "){width=50%}", sep="")) 
-}
+} # Create a function to load the figure of the recipe
 image(2)
 ```
 
@@ -133,7 +137,7 @@ ingredients.section <- html_element(recipe.one, "#ingredients")
 ingredients <- html_elements(ingredients.section, "li")
 ormatted_list <- paste("-", html_text(ingredients))
 cat(formatted_list, sep = "\n")
-}
+} # Create a function to load the ingredients of the recipe
 ingredients(2)
 ```
 
@@ -147,7 +151,7 @@ instructions.section <- html_element(recipe.one, "#instructions")
 instructions <- html_elements(instructions.section, "li")
 formatted_list <- paste("1.", html_text(instructions))
 cat(formatted_list, sep = "\n")
-}
+} # Create a function to load the instructions of the recipe
 instructions(2)
 ```
 
