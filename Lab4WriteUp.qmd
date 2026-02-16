@@ -206,7 +206,8 @@ evaluate.row <- function(number){
   }
  }   # create a function to evaluate row
 df4 <- df3
-df4[,1] <- sapply(df4[,1],evaluate.row)
+df4[,1] <- sapply(df4[,1],evaluate.row) 
+#for(i in 1:length(df4[,1])){evaluate.row(df4[i,1])}
 df4[]
 ```
 
@@ -236,7 +237,7 @@ df[]
 
 Part h
 
-We cannot use vectorization here because it contain more than two conditions, and cannot use ifelse. We can only write it in block notation.
+We cannot use vectorization here because the function contain more than two conditions, so we cannot use ifelse. We can only use loop or `sapply(...)` to get the result.
 
 # Complete Tasks for One Recipe
 
