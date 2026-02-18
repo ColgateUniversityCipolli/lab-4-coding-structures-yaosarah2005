@@ -397,8 +397,9 @@ window.Quarto = {
 <span id="cb21-8"><a href="#cb21-8"></a>  }</span>
 <span id="cb21-9"><a href="#cb21-9"></a> }   <span class="co"># create a function to evaluate row</span></span>
 <span id="cb21-10"><a href="#cb21-10"></a>df4 <span class="ot">&lt;-</span> df3</span>
-<span id="cb21-11"><a href="#cb21-11"></a>df4[,<span class="dv">1</span>] <span class="ot">&lt;-</span> <span class="fu">sapply</span>(df4[,<span class="dv">1</span>],evaluate.row)</span>
-<span id="cb21-12"><a href="#cb21-12"></a>df4[]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb21-11"><a href="#cb21-11"></a>df4[,<span class="dv">1</span>] <span class="ot">&lt;-</span> <span class="fu">sapply</span>(df4[,<span class="dv">1</span>],evaluate.row) </span>
+<span id="cb21-12"><a href="#cb21-12"></a><span class="co">#for(i in 1:length(df4[,1])){evaluate.row(df4[i,1])}</span></span>
+<span id="cb21-13"><a href="#cb21-13"></a>df4[]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>     x1 x2 x3 x12 total.score
@@ -470,7 +471,7 @@ window.Quarto = {
 </div>
 <p></p>
 <p>Part h</p>
-<p>We cannot use vectorization here because it contain more than two conditions, and cannot use ifelse. We can only write it in block notation.</p>
+<p>We cannot use vectorization here because the function contain more than two conditions, so we cannot use ifelse. We can only use loop or <code>sapply(...)</code> to get the result.</p>
 </section>
 </section>
 <section id="complete-tasks-for-one-recipe" class="level1" data-number="2">
